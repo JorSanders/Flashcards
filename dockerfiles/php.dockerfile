@@ -16,6 +16,22 @@ RUN set -x \
 	&& adduser -u 1000 -D -S -G www-data www-data
 RUN chown -R www-data /var/www/
 
+# Xdebug
+RUN apk add --no-cache	g++ make
+RUN apk add --no-cache	autoconf
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
+
+# Laravel requirements
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install mbstring
+RUN apk add --no-cache libmcrypt-dev
+RUN apk add --no-cache mysql-client
+RUN docker-php-ext-install pdo_mysql
+
+# Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # Clean up
 RUN docker-php-source delete
 RUN rm -rf /var/cache/apk/*
