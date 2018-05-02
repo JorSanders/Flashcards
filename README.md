@@ -1,10 +1,10 @@
 # Run php applications with a Nginx host and a MySQL database
 
-Docker running Nginx, PHP-FPM, MySQL 
+Docker running Nginx, PHP-FPM, MySQL. 
 
-INTENDED FOR DEVELOPMENT, insecurities exist for production environments
+INTENDED FOR DEVELOPMENT, insecurities exist for production environments.
 
-Any feedback or questions are welcome
+Any feedback or questions are welcome.
 
 ## Overview
 
@@ -22,7 +22,7 @@ Any feedback or questions are welcome
             
 0. [Useful docker commands](#useful-docker-commands)
 
-    Helpful list of docker commands I find useful
+    Helpful list of docker commands I find useful.
 
 
 ## Install prerequisites
@@ -32,7 +32,7 @@ Any feedback or questions are welcome
 
 ## Setup your own repo
 
-Cd into the directory you want to host your project. IE ```~/Projects/xxxx```
+Cd into the directory you want to host your project. IE ```~/Projects/xxxx```.
 
 Git clone the project.
 
@@ -46,7 +46,7 @@ Alternatively you can add this repo as a remote besides your own git repo.
 
 ```git checkout -b docker-php docker-php/master```
 
-Then switch into your branch and merge the new branch into yours
+Then switch into your branch and merge the new branch into yours.
 
 ```git checkout development```
 
@@ -54,12 +54,13 @@ Then switch into your branch and merge the new branch into yours
 
 ## Set the env variables
 
-If you want pre-configurations for Joomla! or Laravel switch to their respective branch
+If you want pre-configurations for Joomla! or Laravel switch to their respective branch.
 
 You open up the .env file in the project root. You will see some environment variables just change these to your desired values.
 These are the default values as how I set them up. 
 
-Please change the IP address to something unused. I recommend setting it to a [private network IP](https://en.wikipedia.org/wiki/IPv4#Private_networks). Careful not to set it to the IP address of your router :)
+Please change the IP address to something unused. I recommend setting it to a [private network IP](https://en.wikipedia.org/wiki/IPv4#Private_networks). 
+Careful not to set it to the IP address of your router :)
 
 Also set the Project name. 
 
@@ -78,13 +79,13 @@ x.x.x.5	docker.dev www.docker.dev
 ## Run the application
 
 
-2. Start the application :
+2. Start the application
 
 ```
 $ docker-compose up
 ```
     
-3. Open your browser :
+3. Open your browser
 
 [192.168.100.5](192.168.100.5)
    
@@ -92,7 +93,7 @@ $ docker-compose up
 ## Useful Docker commands
 For docker compose commands you'll first need to be in root the directory of this repo. 
 
-If you are using phpstorm I recommend opening a terminal in there. With Alt+F12
+If you are using phpstorm I recommend opening a terminal in there. With Alt+F12.
 
 Starts all the containers defined in the project in the foreground.
 ```
