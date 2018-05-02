@@ -1,0 +1,55 @@
+version: '3.6'
+
+services:
+  webserver:
+    container_name: ${PROJECTNAME}-nginx-${NGINXVERSION}-alpine
+    build:
+          context: ./dockerfiles
+          dockerfile: nginx.dockerfile
+          args:
+            NGINXVERSION: ${NGINXVERSION}
+    volumes:
+       - ./${PROJECTNAME}:/var/www/html
+       - ./conf/nginx.conf:/etc/nginx/conf.d/default.conf
+       - ./logs/nginx:/var/log/nginx
+    depends_on:
+      # you can also reach these service by their name instead of their ip now. From nginx container
+      - php
+      - db
+    networks:
+      static-network:
+        ipv4_address: "${IPV4ADDRESS}.5"
+  php:
+    container_name: ${PROJECTNAME}-php-${PHPVERSION}-fpm
+    build:
+          context: ./dockerfiles
+          dockerfile: php.dockerfile
+          args:
+            PHPVERSION: ${PHPVERSION}
+    volumes:
+      - ./${PROJECTNAME}:/var/www/html
+      - ./conf/php.ini:/usr/local/etc/php/conf.d/50-setting.ini
+    networks:
+      static-network:
+        ipv4_address: "${IPV4ADDRESS}.6"
+  db:
+    image: mysql:${MYSQLVERSION}
+    container_name: ${PROJECTNAME}-mysql-${NGINXVERSION}
+    volumes:
+      - ./db-${MYSQLVERSION}:/var/lib/mysql
+      # By default logging in mysql is disabled. I see no need to enable. So this directory will be empty
+      - ./logs/mysql:/var/log/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${ROOTPASS}
+      - MYSQL_DATABASE=${DBNAME}
+      - MYSQL_USER=${DBUSER}
+      - MYSQL_PASSWORD=${DBPASS}
+    networks:
+      static-network:
+        ipv4_address: "${IPV4ADDRESS}.7"
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: "${IPV4ADDRESS}.0/28"
