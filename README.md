@@ -10,7 +10,7 @@ Any feedback or questions are welcome.
 
 0. [Install prerequisites](#install-prerequisites)
 
-    Before installing project make sure the following prerequisites have been met.
+    Install docker and docker-compose
 
 0. [Setup your own repo](#setup-your-own-repo)
 
