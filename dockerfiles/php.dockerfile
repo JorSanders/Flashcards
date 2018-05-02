@@ -28,6 +28,7 @@ RUN docker-php-ext-install mbstring
 RUN apk add --no-cache libmcrypt-dev
 RUN apk add --no-cache mysql-client
 RUN docker-php-ext-install pdo_mysql
+RUN apk add --no-cache git
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
