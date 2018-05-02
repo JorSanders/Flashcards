@@ -23,7 +23,7 @@ services:
     container_name: ${PROJECTNAME}-php-${PHPVERSION}-fpm
     build:
           context: ./dockerfiles
-          dockerfile: php.${PHPDOCKERFILE}.dockerfile
+          dockerfile: php.dockerfile
           args:
             PHPVERSION: ${PHPVERSION}
     volumes:
