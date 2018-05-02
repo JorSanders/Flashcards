@@ -87,7 +87,7 @@ $ docker-compose up
     
 3. Open your browser
 
-[192.168.100.5](192.168.100.5)
+[192.168.100.5](http://192.168.100.5)
    
 
 ## Useful Docker commands
