@@ -15,7 +15,8 @@ class CardController extends Controller
     public function index()
     {
         //
-		return view('cards.index');
+		$cards = Card::all();
+		return view('cards.index', ['cards' => $cards]);
 	}
 
     /**
@@ -48,6 +49,9 @@ class CardController extends Controller
     public function show(Card $card)
     {
         //
+		$card = Card::find($card->id);
+
+		return view('cards.show', ['card' => $card]);
     }
 
     /**

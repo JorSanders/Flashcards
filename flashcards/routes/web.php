@@ -15,3 +15,5 @@ Route::get('/', function () {
 });
 
 Route::resource('cards', 'CardController');
+Route::resource('contents', 'ContentController');
+Route::resource('categories', 'CategoryController');

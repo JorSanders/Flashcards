@@ -15,7 +15,9 @@ class CategoryController extends Controller
     public function index()
     {
         //
-    }
+		$categories = Category::all();
+		return view('categories.index', ['categories' => $categories]);
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -47,7 +49,10 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
-    }
+		$category = Category::find($category->id);
+
+		return view('categories.show', ['category' => $category]);
+	}
 
     /**
      * Show the form for editing the specified resource.
