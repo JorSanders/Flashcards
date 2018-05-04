@@ -2,6 +2,7 @@
 <h4>{{ $category->description }}</h4>
 
 @foreach($category->cards as $card)
+    <h5>{{ $card->id }}</h5>
     @foreach($card->contents as $content)
         <li>{{ $content->heading}}</li>
         <li>{{ $content->description }}</li>
