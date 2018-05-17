@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Card;
 use Illuminate\Http\Request;
 
-class CardController extends Controller
+class CardsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,7 @@ class CardController extends Controller
     public function index()
     {
         //
-		$cards = Card::all();
-		return view('cards.index', ['cards' => $cards]);
-	}
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -49,9 +47,6 @@ class CardController extends Controller
     public function show(Card $card)
     {
         //
-		$card = Card::find($card->id);
-
-		return view('cards.show', ['card' => $card]);
     }
 
     /**

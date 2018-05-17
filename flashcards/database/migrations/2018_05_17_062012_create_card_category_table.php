@@ -15,9 +15,13 @@ class CreateCardCategoryTable extends Migration
     {
         Schema::create('card_category', function (Blueprint $table) {
             $table->increments('id');
-			$table->integer('card_id')->unsigned();
-			$table->integer('category_id')->unsigned();
-			$table->timestamps();
+
+			$table->integer('card_id')->unsigned()->nullable();
+			$table->foreign('card_id')->references('id')->on('cards')->ondelete('set null');
+			$table->integer('category_id')->unsigned()->nullable();
+			$table->foreign('category_id')->references('id')->on('categories')->ondelete('set null');
+
+            $table->timestamps();
         });
     }
 

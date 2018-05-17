@@ -8,13 +8,12 @@ class Card extends Model
 {
     //
 	protected $fillable = [
-
+		'english',
+		'pinyin',
+		'character',
+		'comment',
+		'user_id',
 	];
-
-	public function contents()
-	{
-		return $this->belongsToMany('App\Content');
-	}
 
 	public function categories()
 	{

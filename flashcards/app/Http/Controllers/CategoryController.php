@@ -53,14 +53,39 @@ class CategoryController extends Controller
 			return back()->withInput()->with('errors', 'Category was not created');
 		}
 
-		$card = Card::create();
-
-		if (!$card)
+		$cards = [];
+		// Create the cards
+		for ($i = 0; ; $i++)
 		{
-			return back()->withInput()->with('errors', 'Card could not be created');
+			if ($request->input('english-' . $i) !== null ||
+				$request->input('pinyin-' . $i) !== null ||
+				$request->input('character-' . $i) !== null ||
+				$request->input('comment-' . $i) !== null
+			)
+			{
+				$card    = Card::create([
+					'english'   => $request->input('english-' . $i),
+					'pinyin'    => $request->input('english-' . $i),
+					'character' => $request->input('english-' . $i),
+					'comment'   => $request->input('english-' . $i),
+				]);
+				$cards[] = $card;
+			}
+			else
+			{
+				break;
+			}
 		}
 
-		$category->cards()->attach($card->id);
+		// Attach the cards
+		foreach ($cards as $card)
+		{
+			if (!$card)
+			{
+				return back()->withInput()->with('errors', 'Card could not be created');
+			}
+			$category->cards()->attach($card->id);
+		}
 
 		return redirect()->route('categories.show', ['category' => $category->id])
 			->with('success', 'Category created successfully');

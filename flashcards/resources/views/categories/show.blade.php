@@ -3,11 +3,10 @@
 
 @foreach($category->cards as $card)
     <h5>{{ $card->id }}</h5>
-    @foreach($card->contents as $content)
-        <li>{{ $content->heading}}</li>
-        <li>{{ $content->description }}</li>
-        <br>
-    @endforeach
+    <li>{{ $card->english }}</li>
+    <li>{{ $card->pinyin }}</li>
+    <li>{{ $card->character }}</li>
+    <li>{{ $card->comment }}</li>
 @endforeach
 
 
