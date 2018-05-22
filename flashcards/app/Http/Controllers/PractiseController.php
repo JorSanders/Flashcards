@@ -47,14 +47,40 @@ class PractiseController extends Controller
 
 		if (Auth::check())
 		{
-			//todo fix
-			$card = [];
+
+			// Check if any cards have never been correctly answered
+			$neverCorrect = [];
+			foreach ($cards as $card)
+			{
+				if ($card->lastTimeCorrect === null)
+				{
+					$neverCorrect[] = $card;
+				}
+			}
+
+			// get the one which one to longest ago to be incorrect
+			if (sizeof($neverCorrect) > 0)
+			{
+				usort($neverCorrect, function ($a, $b) {
+					return strtotime($a['lastTimeIncorrect']) - strtotime($b['lastTimeIncorrect']);
+				});
+				$card = reset($neverCorrect);
+			}
+			// Get the one which was longest ago to be correct
+			else
+			{
+				usort($cards, function ($a, $b) {
+					return strtotime($a['lastTimeCorrect']) - strtotime($b['lastTimeCorrect']);
+				});
+				$card = reset($cards);
+			}
 		}
 		else
 		{
 			$card = $cards[rand(0, (int) sizeof($cards) - 1)];
 		}
 
+		$b = $card->lastTimeCorrect;
 		return view('practise.show', ['card' => $card]);
 	}
 

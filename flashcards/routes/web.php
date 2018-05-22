@@ -17,3 +17,11 @@ Route::get('/', function () {
 Route::resource('cards', 'CardController');
 Route::resource('categories', 'CategoryController');
 Route::resource('practise', 'PractiseController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

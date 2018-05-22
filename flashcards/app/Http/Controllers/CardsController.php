@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Card;
 use Illuminate\Http\Request;
 
 class CardsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
