@@ -16,3 +16,4 @@ Route::get('/', function () {
 
 Route::resource('cards', 'CardController');
 Route::resource('categories', 'CategoryController');
+Route::resource('practise', 'PractiseController');
