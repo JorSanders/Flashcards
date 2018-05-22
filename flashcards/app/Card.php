@@ -15,6 +15,9 @@ class Card extends Model
 		'user_id',
 	];
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
 	public function categories()
 	{
 		return $this->belongsToMany('App\Category');
