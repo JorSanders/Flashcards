@@ -20,4 +20,4 @@
 
 </form>
 
-<script type="text/javascript" src="{{ URL::asset('js/test.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/addFormElements.js') }}"></script>

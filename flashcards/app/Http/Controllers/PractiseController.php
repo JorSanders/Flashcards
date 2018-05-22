@@ -80,8 +80,23 @@ class PractiseController extends Controller
 			$card = $cards[rand(0, (int) sizeof($cards) - 1)];
 		}
 
-		$b = $card->lastTimeCorrect;
-		return view('practise.show', ['card' => $card]);
+		$preferences = new \stdClass();
+		if (Auth::check())
+		{
+			$preferences->english   = 1;
+			$preferences->pinyin    = 0;
+			$preferences->character = 0;
+			$preferences->comment   = 0;
+		}
+		else
+		{
+			$preferences->english   = 1;
+			$preferences->pinyin    = 0;
+			$preferences->character = 0;
+			$preferences->comment   = 0;
+		}
+
+		return view('practise.show', ['card' => $card, 'preferences' => $preferences]);
 	}
 
 	/**
