@@ -10,5 +10,6 @@ class Answer extends Model
 	protected $fillable = [
 		'card_id',
 		'user_id',
+		'correct',
 	];
 }

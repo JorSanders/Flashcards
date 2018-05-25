@@ -18,10 +18,11 @@ Route::resource('cards', 'CardController');
 Route::resource('categories', 'CategoryController');
 Route::resource('practise', 'PractiseController');
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::view('/welcome', 'welcome');
+
+Route::any('/practise/{categoryId}/{cardId}', 'PractiseController@showPractise')->name('practise.show.practise');
+Route::any('/practise/{categoryId}/{cardId}/show-full', 'PractiseController@showFull')->name('practise.show.full')	;

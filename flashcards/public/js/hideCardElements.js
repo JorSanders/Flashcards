@@ -6,11 +6,11 @@ function toggle(elementId) {
         return
     }
 
-    if (preferenceElement.value === 1){
+    if (parseInt(preferenceElement.value) === 1){
         preferenceElement.value = 0;
-        cardElement.style.display = "block";
+        cardElement.style.display = "none";
     }else{
         preferenceElement.value = 1;
-        cardElement.style.display = "none";
+        cardElement.style.display = "block";
     }
 }

@@ -16,14 +16,18 @@
     {{ $card->comment }}
 </div>
 
-<form method="get">
-    <button type="submit">I know</button>
-    <button type="submit">Show full card</button>
+<form method="post" action="{{route('practise.store')}}">
+    @csrf
+    <button name="correct" value="1" type="submit">I know</button>
+    <button name="correct" value="0" type="submit">Show full card</button>
 
-    <input type="hidden" name="preference-english" value="{{ $preferences->english }}"/>
-    <input type="hidden" name="preference-pinyin" value="{{ $preferences->pinyin }}"/>
-    <input type="hidden" name="preference-character" value="{{ $preferences->character }}"/>
-    <input type="hidden" name="preference-comment" value="{{ $preferences->comment }}"/>
+    <input type="hidden" name="cardId" value="{{ $card->id }}">
+    <input type="hidden" name="categoryId" value="{{ $category->id }}">
+
+    <input type="hidden" name="preferenceEnglish" id="preference-english" value="{{ $preferences->english }}"/>
+    <input type="hidden" name="preferencePinyin" id="preference-pinyin" value="{{ $preferences->pinyin }}"/>
+    <input type="hidden" name="preferenceCharacter" id="preference-character" value="{{ $preferences->character }}"/>
+    <input type="hidden" name="preferenceComment" id="preference-comment" value="{{ $preferences->comment }}"/>
 
     <button type="button" onclick="toggle('english')">english</button>
     <button type="button" onclick="toggle('pinyin')">pinyin</button>
