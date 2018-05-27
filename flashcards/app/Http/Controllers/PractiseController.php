@@ -40,8 +40,7 @@ class PractiseController extends Controller
 		$card = $this->findCard($category);
 
 		return redirect()->route('practise.show.practise',
-			['categoryId' => $category->id, 'cardId' => $card->id])
-			->with(['card' => $card, 'category' => $category]);
+			['categoryId' => $category->id, 'cardId' => $card->id]);
 	}
 
 	/**
@@ -122,9 +121,7 @@ class PractiseController extends Controller
 	 */
 	private function returnWithError($errorMessage)
 	{
-		$categories = Category::all();
-
-		return view('practise.index', ['categories' => $categories])
+		return view('practise.index')
 			->with('errors', $errorMessage);
 	}
 
@@ -135,8 +132,6 @@ class PractiseController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
-
 		if (Auth::check())
 		{
 			$answer = Answer::create([
@@ -180,8 +175,9 @@ class PractiseController extends Controller
 			$this->returnWithError('This category has no cards');
 		}
 
+		//todo this logic is flawed so now always just select a random card
 		// If the user is logged in select the card the user hasn't answerred correctly in the longest time
-		if (Auth::check())
+		if (Auth::check() && false)
 		{
 
 			// Check if any cards have never been correctly answered

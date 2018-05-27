@@ -5,21 +5,10 @@ var targetDiv = document.getElementById("cards");
 addCard();
 
 function addCard() {
-    var english = document.createElement("input");
-    english.setAttribute('type', "text");
-    english.setAttribute('name', "english-" + cardCount);
-
-    var pinyin = document.createElement("input");
-    pinyin.setAttribute('type', "text");
-    pinyin.setAttribute('name', "pinyin-" + cardCount);
-
-    var character = document.createElement("input");
-    character.setAttribute('type', "text");
-    character.setAttribute('name', "character-" + cardCount);
-
-    var comment = document.createElement("input");
-    comment.setAttribute('type', "text");
-    comment.setAttribute('name', "comment-" + cardCount);
+    english = createInput("english");
+    pinyin = createInput("pinyin");
+    character = createInput("character");
+    comment = createInput("comment");
 
     var li = document.createElement("li");
     li.appendChild(english);
@@ -32,8 +21,40 @@ function addCard() {
         previousElement.removeEventListener("input", addCard);
     }
 
+    $("#english-" + cardCount).on("change", function () {
+        translate(event.target);
+    });
     cardCount++;
 
     previousElement = english;
     english.addEventListener("input", addCard);
+
+}
+
+function createInput(name) {
+    element = document.createElement("input");
+    element.setAttribute('type', "text");
+    element.setAttribute('name', name + "-" + cardCount);
+    element.setAttribute('id', name + "-" + cardCount);
+
+    return element
+}
+
+function translate(triggerElement) {
+    id = triggerElement.id.split('-')[1];
+    console.log(id);
+    translateString = triggerElement.value;
+    console.log(translateString);
+
+    characterEle = document.getElementById('character-' + id);
+    pinyinEle = document.getElementById('pinyin-' + id);
+    var ulr = 'https://translate.google.com/?text=' + translateString + '&hl=en&langpair=auto%7Czh-CN';
+    $.ajax({
+        url: ulr, success: function (result) {
+            character = $(result).find('#gt-res-dir-ctr').text();
+            pinyin = $(result).find('#res-translit').text();
+            characterEle.value = character;
+            pinyinEle.value = pinyin;
+        }
+    });
 }

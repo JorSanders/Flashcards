@@ -1,3 +1,5 @@
+<script type="text/javascript" src="{{ URL::asset('js/jquery-3.3.1.min.js') }}"></script>
+
 <h1>Create category</h1>
 <form method="post" action="{{route('categories.store')}}">
     {{ csrf_field() }}

@@ -25,4 +25,6 @@ Auth::routes();
 Route::view('/welcome', 'welcome');
 
 Route::any('/practise/{categoryId}/{cardId}', 'PractiseController@showPractise')->name('practise.show.practise');
-Route::any('/practise/{categoryId}/{cardId}/show-full', 'PractiseController@showFull')->name('practise.show.full')	;
+Route::any('/practise/{categoryId}/{cardId}/show-full', 'PractiseController@showFull')->name('practise.show.full');
+Route::view('/test', 'categories/test');
+Route::view('/test2', 'categories/test2');
