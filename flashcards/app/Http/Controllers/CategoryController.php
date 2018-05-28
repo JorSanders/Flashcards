@@ -65,9 +65,9 @@ class CategoryController extends Controller
 			{
 				$card    = Card::create([
 					'english'   => $request->input('english-' . $i),
-					'pinyin'    => $request->input('english-' . $i),
-					'character' => $request->input('english-' . $i),
-					'comment'   => $request->input('english-' . $i),
+					'pinyin'    => $request->input('pinyin-' . $i),
+					'character' => $request->input('character-' . $i),
+					'comment'   => $request->input('comment-' . $i),
 				]);
 				$cards[] = $card;
 			}
