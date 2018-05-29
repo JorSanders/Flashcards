@@ -1,27 +1,45 @@
-<script type="text/javascript" src="{{ URL::asset('js/jquery-3.3.1.min.js') }}"></script>
+@extends('layouts.app')
 
-<p>todo explain</p>
-<p>https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US</p>
-<h1>Create category</h1>
-<form method="post" action="{{route('categories.store')}}">
-    {{ csrf_field() }}
+@section('content')
+    <h2>Create category</h2>
+    <p class="lead">To automatically translate you need
+        <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US">this</a>
+        chrome extension</p>
 
-    <label>Title</label>
-    <input placeholder="Enter title"
-           required
-           name="title"
-    />
-
-    <label>Description</label>
-    <textarea placeholder="Enter description"
-              name="description"
-              rows="5"
-    ></textarea>
-
-    <div id="cards"></div>
-
-    <input type="submit" value="submit"/>
-
-</form>
-
-<script type="text/javascript" src="{{ URL::asset('js/addFormElements.js') }}"></script>
+    <form method="post" action="{{route('categories.store')}}">
+        <div class="form-group">
+            @csrf
+            <label for="category-title">Title</label>
+            <input placeholder="Enter title"
+                   id="category-title"
+                   class="form-control"
+                   required
+                   name="title"
+            />
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control"
+                          name="description"
+                          id="description"
+                          rows="3"
+                          placeholder="Enter description"
+                ></textarea>
+            </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">English</th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">Pinyin</th>
+                        <th scope="col">Character</th>
+                    </tr>
+                    </thead>
+                    <tbody id="cards">
+                    </tbody>
+                </table>
+            <input type="submit" value="submit"/>
+        </div>
+    </form>
+    <script type="text/javascript" src="{{ URL::asset('js/addFormElements.js') }}"></script>
+@endsection

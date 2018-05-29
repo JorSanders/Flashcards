@@ -1,47 +1,21 @@
 <script type="text/javascript" src="{{ URL::asset('js/hideCardElements.js') }}"></script>
 
-<div id="card-english">
-    {{ $card->english }}
-</div>
+@extends('layouts.app')
 
-<div id="card-pinyin">
-    {{ $card->pinyin }}
-</div>
+@section('content')
+    <form method="post" action="{{route('practise.store')}}">
+        @csrf
+        <input type="hidden" name="categoryId" value="{{$category->id}}">
 
-<div id="card-character">
-    {{ $card->character }}
-</div>
-
-<div id="card-comment">
-    {{ $card->comment }}
-</div>
-
-<form method="post" action="{{route('practise.store')}}">
-    @csrf
-    <button name="correct" value="1" type="submit">I know</button>
-    <button name="correct" value="0" type="submit">Show full card</button>
-
-    <input type="hidden" name="cardId" value="{{ $card->id }}">
-    <input type="hidden" name="categoryId" value="{{ $category->id }}">
-
-    <input type="hidden" name="preferenceEnglish" id="preference-english" value="{{ $preferences->english }}"/>
-    <input type="hidden" name="preferencePinyin" id="preference-pinyin" value="{{ $preferences->pinyin }}"/>
-    <input type="hidden" name="preferenceCharacter" id="preference-character" value="{{ $preferences->character }}"/>
-    <input type="hidden" name="preferenceComment" id="preference-comment" value="{{ $preferences->comment }}"/>
-
-    <button type="button" onclick="toggle('english')">english</button>
-    <button type="button" onclick="toggle('pinyin')">pinyin</button>
-    <button type="button" onclick="toggle('character')">character</button>
-    <button type="button" onclick="toggle('comment')">comment</button>
-</form>
-
-<script type="text/javascript">
-
-    @foreach ($preferences as $key=>$preference)
-    if ({{$preference}} === 0) {
-        document.getElementById("card-" + "{{ $key }}").style.display = "none";
-        ;
-    }
-    @endforeach
-
-</script>
+        <div class="card mr-4 mb-4" style="width: 18rem;">
+            <div class="card-body">
+                <p class="card-text" id="card-english">{{ $card->english }}</p>
+            <!--<p class="card-text" id="card-character">{{ $card->character }}</p>
+            <p class="card-text" id="card-pinyin">{{ $card->pinyin }}</p>
+            <p class="card-text" id="card-comment">{{ $card->comment }}</p>-->
+                <button class="btn btn-primary" name="correct" value="1" type="submit">I know</button>
+                <button class="btn btn-primary" name="correct" value="0" type="submit">Show full card</button>
+            </div>
+        </div>
+    </form>
+@endsection

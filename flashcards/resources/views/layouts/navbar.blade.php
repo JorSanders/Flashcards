@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5" id="navbar">
     <a class="navbar-brand" href="#">Logo</a>
 
     <!-- hamburger button -->
@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active px-2">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item px-2" >
                 <a class="nav-link" href="/practise"> Practise</a>

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="mt-5">Flashcards</h2>
-    <p class="lead">This is a website to practise chinese words. English to Chinese and other way around. Characters and pinyin</p>
+    <h2>Flashcards</h2>
+    <p class="lead">This is a website to practise chinese words. English to Chinese and other way around. Characters and/or pinyin.</p>
     <div class="row">
         <div class="col-sm-4 mb-3">
             <div class="card">

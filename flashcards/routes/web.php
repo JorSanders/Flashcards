@@ -18,8 +18,6 @@ Route::resource('cards', 'CardController');
 Route::resource('categories', 'CategoryController');
 Route::resource('practise', 'PractiseController');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Auth::routes();
 
 Route::any('/practise/{categoryId}/{cardId}', 'PractiseController@showPractise')->name('practise.show.practise');
