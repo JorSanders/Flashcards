@@ -22,14 +22,5 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Manage cards</h5>
-                    <p class="card-text">Manage your cards</p>
-                    <a href="/categories/" class="btn btn-primary">Manage</a>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection

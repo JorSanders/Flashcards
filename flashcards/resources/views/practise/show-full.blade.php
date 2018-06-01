@@ -1,13 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card mr-4 mb-4" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{ $card->english }}</h5>
-            <p class="card-text">{{ $card->character }}</p>
-            <p class="card-text">{{ $card->pinyin }}</p>
-            <p class="card-text">{{ $card->comment }}</p>
-            <a href="/practise/{{  $category->id }}" class="btn btn-primary">Next</a>
+    <form method="POST" action="{{route('practise.store')}}">
+        @csrf
+        <input type="hidden" name="categoryId" value="{{$category->id}}">
+
+        <div class="card mr-4 mb-4" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ $card->english }}</h5>
+                <p class="card-text">{{ $card->character }}</p>
+                <p class="card-text">{{ $card->pinyin }}</p>
+                <p class="card-text">{{ $card->comment }}</p>
+                <button class="btn btn-success" name="correct" value="1" type="submit">Correct</button>
+                <button class="btn btn-danger" name="correct" value="0" type="submit">Wrong</button>
+            </div>
         </div>
-    </div>
+    </form>
 @endsection

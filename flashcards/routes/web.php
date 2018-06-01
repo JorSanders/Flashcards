@@ -11,14 +11,24 @@
 |
 */
 Route::get('/', function () {
-    return view('home');
+	return view('home');
 });
-
-Route::resource('cards', 'CardController');
-Route::resource('categories', 'CategoryController');
-Route::resource('practise', 'PractiseController');
 
 Auth::routes();
 
+// Categories
+Route::resource('categories', 'CategoryController');
+// Only for logged in users
+Route::get('categories/create', 'CategoryController@create')->name('categories.create')->middleware('auth');
+Route::post('categories/store', 'CategoryController@store')->name('categories.store')->middleware('auth');
+
+// Practise
+Route::get('/practise', 'PractiseController@index')->name('practise.index');
+Route::post('/practise', 'PractiseController@store')->name('practise.store');
+Route::get('/practise/{categoryId}', 'PractiseController@show')->name('practise.show');
+// Additional
 Route::any('/practise/{categoryId}/{cardId}', 'PractiseController@showPractise')->name('practise.show.practise');
 Route::any('/practise/{categoryId}/{cardId}/show-full', 'PractiseController@showFull')->name('practise.show.full');
+Route::post('/practise/save', 'PractiseController@save')->name('practise.save');
+
+

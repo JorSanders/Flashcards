@@ -9,14 +9,14 @@
     <form method="post" action="{{route('categories.store')}}">
         <div class="form-group">
             @csrf
-            <label for="category-title">Title</label>
+            <label for="category-title mt-2">Title</label>
             <input placeholder="Enter title"
                    id="category-title"
                    class="form-control"
                    required
                    name="title"
             />
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label for="description">Description</label>
                 <textarea class="form-control"
                           name="description"
@@ -38,7 +38,7 @@
                     <tbody id="cards">
                     </tbody>
                 </table>
-            <input type="submit" value="submit"/>
+            <input type="submit" value="create"/>
         </div>
     </form>
     <script type="text/javascript" src="{{ URL::asset('js/addFormElements.js') }}"></script>

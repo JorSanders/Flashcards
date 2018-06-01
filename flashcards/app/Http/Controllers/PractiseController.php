@@ -19,6 +19,12 @@ class PractiseController extends Controller
 		//
 		$categories = Category::all();
 
+		foreach($categories as $key=>$category){
+			if ($category->cards()->count() <= 0){
+				$categories->pull($key);
+			}
+		}
+
 		return view('practise.index', ['categories' => $categories]);
 	}
 
@@ -38,6 +44,11 @@ class PractiseController extends Controller
 		}
 
 		$card = $this->findCard($category);
+
+		if ($card === null)
+		{
+			return $this->returnWithError('This category has no cards');
+		}
 
 		return redirect()->route('practise.show.practise',
 			['categoryId' => $category->id, 'cardId' => $card->id]);
@@ -121,8 +132,8 @@ class PractiseController extends Controller
 	 */
 	private function returnWithError($errorMessage)
 	{
-		return view('practise.index')
-			->with('errors', $errorMessage);
+		return redirect()->route('practise.index',
+			['errors' => $errorMessage]);
 	}
 
 	/**
@@ -146,19 +157,21 @@ class PractiseController extends Controller
 			}
 		}
 
-		if ((int) $request->input('correct') > 0)
-		{
-			return redirect()->route('practise.show',
-				['categoryId' => $request->input('categoryId')])
-				->with(['categoryId' => $request->input('categoryId')]);
-		}
-		else
-		{
-			return redirect()->route('practise.show.full',
-				['categoryId' => $request->input('categoryId'), 'cardId' => $request->input('cardId')])
-				->with(['categoryId' => $request->input('categoryId'), 'cardId' => $request->input('cardId')]);
-		}
+		return redirect()->route('practise.show',
+			['categoryId' => $request->input('categoryId')]);
+	}
 
+	public function save(Request $request)
+	{
+		$english   = cookie('english', $request->input('english'));
+		$pinyin    = cookie('pinyin', $request->input('pinyin'));
+		$character = cookie('character', $request->input('character'));
+		$comment   = cookie('comment', $request->input('comment'));
+
+		return redirect()->route('practise.show.full',
+			['categoryId' => $request->input('categoryId'),
+			 'cardId' => $request->input('cardId')])
+			->cookie($english)->cookie($pinyin)->cookie($character)->cookie($comment);
 	}
 
 	/**
@@ -172,7 +185,7 @@ class PractiseController extends Controller
 
 		if (!sizeof($cards) > 0)
 		{
-			$this->returnWithError('This category has no cards');
+			return null;
 		}
 
 		//todo this logic is flawed so now always just select a random card

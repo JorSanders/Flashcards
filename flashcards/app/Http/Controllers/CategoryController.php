@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Card;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -41,10 +42,16 @@ class CategoryController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		//todo should I check if user is really logged in?
+		if (!Auth::check())
+		{
+			return Redirect::back()->withInput(Input::all());
+		}
+
 		$category = Category::create([
 			'title'       => $request->input('title'),
 			'description' => $request->input('description'),
+			'user_id'     => Auth::user()->id,
 		]);
 
 
@@ -68,6 +75,7 @@ class CategoryController extends Controller
 					'pinyin'    => $request->input('pinyin-' . $i),
 					'character' => $request->input('character-' . $i),
 					'comment'   => $request->input('comment-' . $i),
+					'user_id'   => Auth::user()->id,
 				]);
 				$cards[] = $card;
 			}

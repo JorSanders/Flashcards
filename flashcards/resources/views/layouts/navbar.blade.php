@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5" id="navbar">
-    <a class="navbar-brand" href="#">Logo</a>
+    <a class="navbar-brand" href="/">
+        <img src="/media/logo.png" height="50px" width="50px" />
+    </a>
 
     <!-- hamburger button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -15,14 +17,15 @@
             <li class="nav-item px-2" >
                 <a class="nav-link" href="/practise"> Practise</a>
             </li>
-            <li class="nav-item px-2" >
-                <a class="nav-link" href="/categories"> Categories</a>
-            </li>
+
             @guest
                 <li class="nav-item px-2"><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                 <li class="nav-item px-2"><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                 </li>
             @else
+                <li class="nav-item px-2" >
+                    <a class="nav-link" href="/categories/create">Add cards</a>
+                </li>
                 <li class="nav-item disabled px-2">
                     <span class="navbar-text">
                         {{ Auth::user()->name }}
