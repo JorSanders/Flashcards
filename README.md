@@ -19,6 +19,15 @@ Migrate the changes to the db
 
 ```docker-compose exec php php artisan key:generate```
 
+## Production
+```composer install --optimize-autoloader --no-dev```
+
+```php artisan config:cache```
+
+```php artisan route:cache```
+
+
+
 # Run php applications with a Nginx host and a MySQL database
 
 Docker running Nginx, PHP-FPM, MySQL. 
