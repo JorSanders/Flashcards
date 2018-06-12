@@ -16,12 +16,6 @@ RUN set -x \
 	&& adduser -u 1000 -D -S -G www-data www-data
 RUN chown -R www-data /var/www/
 
-# Xdebug
-RUN apk add --no-cache	g++ make
-RUN apk add --no-cache	autoconf
-RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
-
 # Laravel requirements
 RUN docker-php-ext-install pdo
 RUN docker-php-ext-install mbstring
