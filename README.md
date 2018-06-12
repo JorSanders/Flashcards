@@ -1,3 +1,24 @@
+# Useful Laravel commands
+[Naming convention](https://github.com/alexeymezenin/laravel-best-practices#follow-laravel-naming-conventions)
+
+Create templates
+
+```docker-compose exec php php artisan make:migration create_foobars_table```
+
+```docker-compose exec php php artisan make:model Foobar```
+
+```docker-compose exec php php artisan make:controller FoobarController --resource --model=Foobar```
+
+Migrate the changes to the db
+
+```docker-compose exec php php artisan migrate```
+
+## Startup
+
+```docker-compose exec php composer install```
+
+```docker-compose exec php php artisan key:generate```
+
 # Run php applications with a Nginx host and a MySQL database
 
 Docker running Nginx, PHP-FPM, MySQL. 
