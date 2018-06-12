@@ -12,13 +12,8 @@ services:
        - ./${PROJECTNAME}:/var/www/html
        - ./conf/nginx.conf:/etc/nginx/conf.d/default.conf
        - ./logs/nginx:/var/log/nginx
-    depends_on:
-      # you can also reach these service by their name instead of their ip now. From nginx container
-      - php
-      - db
-    networks:
-      static-network:
-        ipv4_address: "${IPV4ADDRESS}.5"
+    ports:
+      - "${NGINXPORT}:80"
   php:
     container_name: ${PROJECTNAME}-php-${PHPVERSION}-fpm
     build:
@@ -29,9 +24,6 @@ services:
     volumes:
       - ./${PROJECTNAME}:/var/www/html
       - ./conf/php.ini:/usr/local/etc/php/conf.d/50-setting.ini
-    networks:
-      static-network:
-        ipv4_address: "${IPV4ADDRESS}.6"
   db:
     image: mysql:${MYSQLVERSION}
     container_name: ${PROJECTNAME}-mysql-${NGINXVERSION}
@@ -44,12 +36,5 @@ services:
       - MYSQL_DATABASE=${DBNAME}
       - MYSQL_USER=${DBUSER}
       - MYSQL_PASSWORD=${DBPASS}
-    networks:
-      static-network:
-        ipv4_address: "${IPV4ADDRESS}.7"
-
-networks:
-  static-network:
-    ipam:
-      config:
-        - subnet: "${IPV4ADDRESS}.0/28"
+    ports:
+      - "${MYSQLPORT}:3306"
