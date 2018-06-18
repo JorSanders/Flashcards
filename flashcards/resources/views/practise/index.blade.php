@@ -2,6 +2,9 @@
 
 @section('content')
     <h2>Choose a category</h2>
+    <p class="lead">Create your own cards to practise
+        <a href="/categories/create">here</a>.
+    </p>
 
     <div class="row">
         @foreach($categories as $category)

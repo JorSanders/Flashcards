@@ -7,6 +7,8 @@ use App\Card;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 class PractiseController extends Controller
 {
@@ -19,8 +21,10 @@ class PractiseController extends Controller
 		//
 		$categories = Category::all();
 
-		foreach($categories as $key=>$category){
-			if ($category->cards()->count() <= 0){
+		foreach ($categories as $key => $category)
+		{
+			if ($category->cards()->count() <= 0)
+			{
 				$categories->pull($key);
 			}
 		}
@@ -35,23 +39,69 @@ class PractiseController extends Controller
 	 */
 	public function show($categoryId)
 	{
-		//
 		$category = Category::find((int) $categoryId);
 
 		if (!$category)
 		{
-			return $this->returnWithError('Category not found');
+			return $this->returnWithMessage('Category not found');
 		}
 
-		$card = $this->findCard($category);
+		if (count($category->cards) <= 0)
+		{
+			return $this->returnWithMessage('No cards in this category');
+		}
+
+		$cardIdsJson = Cookie::get($category->title);
+
+		if ($cardIdsJson === null)
+		{
+			$cardIdsJson = $this->getCardsCookie($category);
+		}
+
+		$cardIds = json_decode($cardIdsJson);
+
+		if (!is_array($cardIds))
+		{
+			$cardIds = [$cardIds];
+		}
+
+		if (count($cardIds) <= 0)
+		{
+			Cookie::queue(
+				Cookie::forget($category->title)
+			);
+
+			return $this->returnWithMessage('Complete');
+		}
+
+		$card = Card::find((int) $cardIds[0]);
 
 		if ($card === null)
 		{
-			return $this->returnWithError('This category has no cards');
+			return $this->returnWithMessage('Card couldn\'t be found');
 		}
 
 		return redirect()->route('practise.show.practise',
 			['categoryId' => $category->id, 'cardId' => $card->id]);
+	}
+
+	private function getCardsCookie(Category $category)
+	{
+		$cards = $category->cards;
+
+		$cardIds = [];
+
+		foreach ($cards as $card)
+		{
+			$cardIds[] = $card->id;
+		}
+
+		//todo shufle the array
+
+		$cookie = cookie($category->title, json_encode($cardIds));
+		Cookie::queue($cookie);
+
+		return $cookie->getValue();
 	}
 
 	/**
@@ -67,18 +117,16 @@ class PractiseController extends Controller
 
 		if (!$category)
 		{
-			return $this->returnWithError('Category not found');
+			return $this->returnWithMessage('Category not found');
 		}
 
 		if (!$card)
 		{
-			return $this->returnWithError('Card not found');
+			return $this->returnWithMessage('Card not found');
 		}
 
-		$preferences = $this->getPreferences();
-
 		return view('practise.show-practise',
-			['card' => $card, 'preferences' => $preferences, 'category' => $category]
+			['card' => $card, 'category' => $category]
 		);
 	}
 
@@ -95,45 +143,27 @@ class PractiseController extends Controller
 
 		if (!$category)
 		{
-			return $this->returnWithError('Category not found');
+			return $this->returnWithMessage('Category not found');
 		}
 
 		if (!$card)
 		{
-			return $this->returnWithError('Card not found');
+			return $this->returnWithMessage('Card not found');
 		}
 
 		return view('practise.show-full', ['category' => $category, 'card' => $card]);
 	}
 
 	/**
-	 * @return \stdClass
-	 */
-	private function getPreferences()
-	{
-		$preferences = new \stdClass();
-
-		//todo If user is logged in get preferences from profile
-		//todo if user is not logged in set preferences in a cookie
-		//todo if no cookie is set set preferences to these defaults
-		$preferences->english   = 1;
-		$preferences->pinyin    = 0;
-		$preferences->character = 0;
-		$preferences->comment   = 0;
-
-
-		return $preferences;
-	}
-
-	/**
-	 * @param $errorMessage
+	 * @param $message
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	private function returnWithError($errorMessage)
+	private function returnWithMessage($message)
 	{
-		return redirect()->route('practise.index',
-			['errors' => $errorMessage]);
+		Session::put('message', $message);
+
+		return redirect(route('practise.index'));
 	}
 
 	/**
@@ -143,12 +173,31 @@ class PractiseController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		$category = Category::find((int) $request->input('categoryId'));
+
+		$cardIdsJson = Cookie::get($category->title);
+		$cardIds     = json_decode($cardIdsJson);
+		if (!is_array($cardIds))
+		{
+			$cardIds = [$cardIds];
+		}
+
+		$cardId = array_shift($cardIds);
+
+		if (!(bool) $request->input('correct'))
+		{
+			$cardIds[] = $cardId;
+		}
+
+		$cookie = cookie($category->title, json_encode($cardIds));
+		Cookie::queue($cookie);
+
 		if (Auth::check())
 		{
 			$answer = Answer::create([
 				'card_id' => $request->input('cardId'),
 				'user_id' => Auth::user()->id,
-				'correct' => $request->input('correct'),
+				'correct' => (int) $request->input('correct'),
 			]);
 
 			if (!$answer)
@@ -168,10 +217,14 @@ class PractiseController extends Controller
 		$character = cookie('character', $request->input('character'));
 		$comment   = cookie('comment', $request->input('comment'));
 
+		Cookie::queue($english);
+		Cookie::queue($pinyin);
+		Cookie::queue($character);
+		Cookie::queue($comment);
+
 		return redirect()->route('practise.show.full',
 			['categoryId' => $request->input('categoryId'),
-			 'cardId' => $request->input('cardId')])
-			->cookie($english)->cookie($pinyin)->cookie($character)->cookie($comment);
+			 'cardId'     => $request->input('cardId')]);
 	}
 
 	/**
@@ -188,42 +241,7 @@ class PractiseController extends Controller
 			return null;
 		}
 
-		//todo this logic is flawed so now always just select a random card
-		// If the user is logged in select the card the user hasn't answerred correctly in the longest time
-		if (Auth::check() && false)
-		{
-
-			// Check if any cards have never been correctly answered
-			$neverCorrect = [];
-			foreach ($cards as $card)
-			{
-				if ($card->lastTimeCorrect === null)
-				{
-					$neverCorrect[] = $card;
-				}
-			}
-
-			// get the one which one to longest ago to be incorrect
-			if (sizeof($neverCorrect) > 0)
-			{
-				usort($neverCorrect, function ($a, $b) {
-					return strtotime($a['lastTimeIncorrect']) - strtotime($b['lastTimeIncorrect']);
-				});
-				$card = reset($neverCorrect);
-			}
-			// Get the one which was longest ago to be correct
-			else
-			{
-				usort($cards, function ($a, $b) {
-					return strtotime($a['lastTimeCorrect']) - strtotime($b['lastTimeCorrect']);
-				});
-				$card = reset($cards);
-			}
-		}
-		else
-		{
-			$card = $cards[rand(0, (int) sizeof($cards) - 1)];
-		}
+		$card = $cards[0];
 
 		return $card;
 	}

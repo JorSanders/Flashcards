@@ -27,8 +27,8 @@ Route::get('/practise', 'PractiseController@index')->name('practise.index');
 Route::post('/practise', 'PractiseController@store')->name('practise.store');
 Route::get('/practise/{categoryId}', 'PractiseController@show')->name('practise.show');
 // Additional
-Route::any('/practise/{categoryId}/{cardId}', 'PractiseController@showPractise')->name('practise.show.practise');
-Route::any('/practise/{categoryId}/{cardId}/show-full', 'PractiseController@showFull')->name('practise.show.full');
+Route::get('/practise/{categoryId}/{cardId}', 'PractiseController@showPractise')->name('practise.show.practise');
+Route::get('/practise/{categoryId}/{cardId}/show-full', 'PractiseController@showFull')->name('practise.show.full');
 Route::post('/practise/save', 'PractiseController@save')->name('practise.save');
 
 
