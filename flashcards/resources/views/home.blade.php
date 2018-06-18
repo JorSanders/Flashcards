@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Add cards</h5>
-                    <p class="card-text">Create a new category and add</p>
+                    <p class="card-text">Create your own cards</p>
                     <a href="/categories/create" class="btn btn-primary">Add now</a>
                 </div>
             </div>
