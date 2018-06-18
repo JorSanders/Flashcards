@@ -35,9 +35,11 @@
             onclick="toggle('character')" type="submit">Character: show
     </button>
 
+    <!--
     <button class="btn btn-danger my-2" id="button-comment"
             onclick="toggle('comment')" type="submit">Comment: show
     </button>
+    -->
 
     @if (Cookie::get('english') === '0')
         <script> toggle('english'); </script>
