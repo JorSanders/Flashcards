@@ -1,15 +1,38 @@
 var cardCount = 0;
 var targetDiv = document.getElementById("cards");
-
 allInputFields = [];
 
-var idk = function addCard() {
+$("#title").change(function () {
+    event.target.value = jsUcfirst(event.target.value);
+});
+$("#description").change(function () {
+    event.target.value = jsUcfirst(event.target.value);
+});
+
+
+var addCardHandler = function () {
+    // Yes this seems useless. But otherwise an argument will be passed to the addCard() function
+    addCard();
+};
+
+function addCard(card = null) {
     var inputFields = [];
 
     // Create the input fields
     inputFields['english'] = createInput("english");
     inputFields['character'] = createInput("character");
     inputFields['pinyin'] = createInput("pinyin");
+
+    idElement = document.createElement("input");
+    idElement.setAttribute('type', "hidden");
+    idElement.setAttribute('name', "cardId-" + cardCount);
+
+    if (card !== null) {
+        inputFields['english'].value = card.english;
+        inputFields['character'].value = card.character;
+        inputFields['pinyin'].value = card.pinyin;
+        idElement.setAttribute('value', card.id);
+    }
 
     // Create the table row
     var tr = document.createElement("TR");
@@ -23,12 +46,15 @@ var idk = function addCard() {
         td.appendChild(inputFields[key]);
         tr.appendChild(td);
     }
+
+    tr.appendChild(idElement);
+
     targetDiv.appendChild(tr);
 
     // Set the previous fields on required and remove the addcard event listener
     if (cardCount > 0) {
-        $(allInputFields[cardCount - 1]['english']).off("input", idk);
-        $(allInputFields[cardCount - 1]['character']).off("input", idk);
+        $(allInputFields[cardCount - 1]['english']).off("input", addCardHandler);
+        $(allInputFields[cardCount - 1]['character']).off("input", addCardHandler);
 
         allInputFields[cardCount - 1]['english'].required = true;
         allInputFields[cardCount - 1]['character'].required = true;
@@ -44,12 +70,12 @@ var idk = function addCard() {
     });
 
     // Add the addcard translate event listeners
-    $(inputFields['english']).on("input", idk);
-    $(inputFields['character']).on("input", idk);
+    $(inputFields['english']).on("input", addCardHandler);
+    $(inputFields['character']).on("input", addCardHandler);
 
     allInputFields.push(inputFields);
     cardCount++;
-};
+}
 
 function createInput(name) {
     element = document.createElement("input");
@@ -66,7 +92,7 @@ function translateEnCh(triggerElement) {
     id = triggerElement.id.split('-')[1];
     translateString = triggerElement.value;
 
-    translateString.replace(/^\w/, c => c.toUpperCase());
+    translateString = jsUcfirst(translateString);
 
     var url = 'https://translate.google.com/?text=' + translateString + '&hl=en&langpair=auto%7Czh-CN';
     $.ajax({
@@ -99,4 +125,11 @@ function translateChEn(triggerElement) {
     });
 }
 
-idk.call();
+function jsUcfirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+cards.forEach(function (card) {
+    addCard(card);
+});
+addCard();
