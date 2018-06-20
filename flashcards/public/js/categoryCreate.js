@@ -119,7 +119,7 @@ function translateChEn(triggerElement) {
         success: function (result) {
             pinyin = $(result).find('#src-translit').text();
             english = $(result).find('#result_box').text();
-            englishEle.value = english;
+            englishEle.value = jsUcfirst(english);
             pinyinEle.value = pinyin;
         }
     });
