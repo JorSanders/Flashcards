@@ -11,6 +11,9 @@
                     <h5 class="card-title">{{ $category->title }}</h5>
                     <p class="card-text">{{ $category->description }}</p>
                     <a href="/categories/{{  $category->id }}" class="btn btn-primary">View</a>
+                    @if( Auth::check() && $category->user_id == Auth::user()->id)
+                    <a href="/categories/{{  $category->id }}/edit" class="btn btn-primary">Edit</a>
+                    @endif
                 </div>
             </div>
         @endforeach

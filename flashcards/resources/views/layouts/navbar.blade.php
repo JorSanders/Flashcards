@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5" id="navbar">
     <a class="navbar-brand" href="/">
-        <img src="/media/logo.png" height="50px" width="50px" />
+        <img src="/media/logo.png" height="50px" width="50px"/>
     </a>
 
     <!-- hamburger button -->
@@ -14,7 +14,7 @@
             <li class="nav-item active px-2">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item px-2" >
+            <li class="nav-item px-2">
                 <a class="nav-link" href="/practise"> Practise</a>
             </li>
 
@@ -23,8 +23,11 @@
                 <li class="nav-item px-2"><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                 </li>
             @else
-                <li class="nav-item px-2" >
+                <li class="nav-item px-2">
                     <a class="nav-link" href="/categories/create">Add cards</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="/categories">View cards</a>
                 </li>
                 <li class="nav-item disabled px-2">
                     <span class="navbar-text">
