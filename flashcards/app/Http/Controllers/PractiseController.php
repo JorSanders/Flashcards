@@ -51,7 +51,7 @@ class PractiseController extends Controller
 			return $this->returnWithMessage('No cards in this category');
 		}
 
-		$cardIdsJson = Cookie::get($category->title);
+		$cardIdsJson = Cookie::get(urlencode($category->title));
 
 		if ($cardIdsJson === null)
 		{
@@ -68,7 +68,7 @@ class PractiseController extends Controller
 		if (count($cardIds) <= 0)
 		{
 			Cookie::queue(
-				Cookie::forget($category->title)
+				Cookie::forget(urlencode($category->title))
 			);
 
 			return $this->returnWithMessage('Complete');
@@ -98,7 +98,7 @@ class PractiseController extends Controller
 
 		//todo shufle the array
 
-		$cookie = cookie($category->title, json_encode($cardIds));
+		$cookie = cookie(urlencode($category->title), json_encode($cardIds));
 		Cookie::queue($cookie);
 
 		return $cookie->getValue();
@@ -175,7 +175,7 @@ class PractiseController extends Controller
 	{
 		$category = Category::find((int) $request->input('categoryId'));
 
-		$cardIdsJson = Cookie::get($category->title);
+		$cardIdsJson = Cookie::get(urlencode($category->title));
 		$cardIds     = json_decode($cardIdsJson);
 		if (!is_array($cardIds))
 		{
@@ -189,7 +189,7 @@ class PractiseController extends Controller
 			$cardIds[] = $cardId;
 		}
 
-		$cookie = cookie($category->title, json_encode($cardIds));
+		$cookie = cookie(urlencode($category->title), json_encode($cardIds));
 		Cookie::queue($cookie);
 
 		if (Auth::check())
