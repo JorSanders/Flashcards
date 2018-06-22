@@ -19,7 +19,7 @@ class PractiseController extends Controller
 	public function index()
 	{
 		//
-		$categories = Category::all();
+		$categories= Category::orderBy('title','asc')->get();
 
 		foreach ($categories as $key => $category)
 		{
