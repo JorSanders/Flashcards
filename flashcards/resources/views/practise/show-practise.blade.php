@@ -3,13 +3,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card mr-4 mb-4" style="width: 18rem;">
+    <div class="card" style="height: 20rem; width: 20rem;">
         <div class="card-body">
             <h5 class="card-title" style="display: block" id="card-english">{{ $card->english }}</h5>
             <h5 class="card-title" style="display: none" id="card-pinyin">{{ $card->pinyin }}</h5>
             <h5 class="card-title" style="display: none" id="card-character">{{ $card->character }}</h5>
             <h5 class="card-title" style="display: none" style="display: none"
-                id="card-comment">{{ $card->comment }}</h5>
+                id="card-comment">{{ $card->comment }}
+            </h5>
+        </div>
+        <div class="card-footer">
             <form method="post" action="{{route('practise.save')}}">
                 @csrf
                 <input type="hidden" id="preference-english" name="english" value="1">
