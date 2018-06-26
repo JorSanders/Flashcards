@@ -1,1 +1,1 @@
-Codebase for [www.jorsanders.com](www.jorsanders.com)
+Codebase for [www.jorsanders.com](http://www.jorsanders.com)
