@@ -4,6 +4,7 @@
     <form method="POST" action="{{route('practise.store')}}">
         @csrf
         <input type="hidden" name="categoryId" value="{{$category->id}}">
+        <input type="hidden" name="cardId" value="{{$card->id}}">
 
         <div class="card" style="height: 20rem; width: 20rem;">
             <div class="card-body">
