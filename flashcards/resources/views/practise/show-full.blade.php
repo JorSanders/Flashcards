@@ -13,8 +13,8 @@
                 <h5 class="card-title">{{ $card->pinyin }}</h5>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success" name="correct" value="1" type="submit">Correct</button>
-                <button class="btn btn-danger" name="correct" value="0" type="submit">Wrong</button>
+                <button class="btn btn-success" style="width: 49%" name="correct" value="1" type="submit">Correct</button>
+                <button class="btn btn-danger" style="width: 49%" name="correct" value="0" type="submit">Wrong</button>
             </div>
         </div>
     </form>

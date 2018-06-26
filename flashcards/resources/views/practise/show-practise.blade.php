@@ -10,7 +10,7 @@
             <h5 class="card-title" style="display: none;" id="card-character">{{ $card->character }}</h5>
         </div>
         <div class="card-footer">
-            <button class="btn btn-primary" onclick="$( '#preference-form' ).submit();" type="submit">Show the answer</button>
+            <button class="btn btn-primary" style="width: 98%;" onclick="$( '#preference-form' ).submit();" type="submit">Show the answer</button>
         </div>
     </div>
     <form method="post" style="display: none;" id="preference-form" action="{{route('practise.save')}}">
