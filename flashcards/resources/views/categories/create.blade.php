@@ -27,10 +27,11 @@
                 <textarea class="form-control"
                           name="description"
                           id="description"
-                          value="{{ $category->description or null }}"
                           rows="3"
                           placeholder="Enter description"
-                ></textarea>
+                >
+                    {{ $category->description or null }}
+                </textarea>
             </div>
             <table class="table table-striped">
                 <thead>
