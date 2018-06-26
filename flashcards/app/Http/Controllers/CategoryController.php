@@ -20,7 +20,9 @@ class CategoryController extends Controller
 	public function index()
 	{
 		//
-		$categories= Category::orderBy('title','asc')->get();
+		Auth::check();
+
+		$categories= Category::where('user_id', Auth::user()->id)->orderBy('title','asc')->get();
 
 		return view('categories.index', ['categories' => $categories]);
 	}

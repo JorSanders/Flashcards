@@ -2,8 +2,8 @@
 
 @section('content')
     <h2>Flashcards</h2>
-    <p class="lead">This is a website I created to learn Chinese words. Please feel free to use of it.</p>
-    <div class="card-group">
+    <p class="lead">This is a website I created to learn Chinese words. Please feel free to use it. </p><p> Note that I definitely am not a designer so excuse me for the basic look of the website.</p>
+    <div class="card-deck   ">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Start now</h5>
