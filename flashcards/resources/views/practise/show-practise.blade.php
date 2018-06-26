@@ -10,17 +10,17 @@
             <h5 class="card-title" style="display: none;" id="card-character">{{ $card->character }}</h5>
         </div>
         <div class="card-footer">
-            <form method="post" action="{{route('practise.save')}}">
-                @csrf
-                <input type="hidden" id="preference-english" name="english" value="1">
-                <input type="hidden" id="preference-pinyin" name="pinyin" value="0">
-                <input type="hidden" id="preference-character" name="character" value="0">
-                <input type="hidden" name="categoryId" value="{{ $category->id }}">
-                <input type="hidden" name="cardId" value="{{ $card->id }}">
-                <button class="btn btn-primary" type="submit">Show the answer</button>
-            </form>
+            <button class="btn btn-primary" onclick="$( '#preference-form' ).submit();" type="submit">Show the answer</button>
         </div>
     </div>
+    <form method="post" style="display: none;" id="preference-form" action="{{route('practise.save')}}">
+        @csrf
+        <input type="hidden" id="preference-english" name="english" value="1">
+        <input type="hidden" id="preference-pinyin" name="pinyin" value="0">
+        <input type="hidden" id="preference-character" name="character" value="0">
+        <input type="hidden" name="categoryId" value="{{ $category->id }}">
+        <input type="hidden" name="cardId" value="{{ $card->id }}">
+    </form>
 
     <button class="btn btn-secondary my-2" id="button-english"
             onclick="toggle('english')" type="submit">English: show
