@@ -27,7 +27,7 @@
                     <a class="nav-link" href="/categories/create">Add cards</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a class="nav-link" href="/categories">View cards</a>
+                    <a class="nav-link" href="/categories">My cards</a>
                 </li>
                 <li class="nav-item disabled px-2">
                     <span class="navbar-text">

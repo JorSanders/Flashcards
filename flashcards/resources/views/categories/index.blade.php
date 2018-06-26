@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2>Categories overview</h2>
+    <h2>Your categories</h2>
 
     <div class="row">
         @foreach($categories as $category)
@@ -12,10 +12,10 @@
                     <p class="card-text">{{ $category->description }}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="/practise/{{  $category->id }}" class="btn btn-primary">start</a>
+                    <a href="/practise/{{  $category->id }}" class="btn btn-success">Start</a>
                     <a href="/categories/{{  $category->id }}" class="btn btn-primary">View</a>
                     @if( Auth::check() && $category->user_id == Auth::user()->id)
-                        <a href="/categories/{{  $category->id }}/edit" class="btn btn-primary">Edit</a>
+                        <a href="/categories/{{  $category->id }}/edit" class="btn btn-warning">Edit</a>
                     @endif
                 </div>
             </div>

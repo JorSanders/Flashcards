@@ -2,13 +2,17 @@
 
 @section('content')
     <h2>{{ isset($category)? "Edit " . $category->title : "Create category" }}</h2>
-    <p class="lead">To automatically translate you need
+    <div class="alert alert-danger">Sorry, to automatically translate you need
         <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US">this</a>
-        chrome extension</p>
+        chrome extension. Working on a new way.
+    </div>
 
     <form method="post"
           action="{{ isset($category)? route('categories.update', [$category->id]) : route('categories.store')}}">
         <div class="form-group">
+            <p>
+                <input type="submit" class="btn-primary" value="save"/>
+            </p>
             @csrf
             <label for="category mt-2">Title</label>
             <input placeholder="Enter title"
@@ -48,8 +52,8 @@
     </form>
     <script>
         cards = [];
-        @if(isset($category))
-            var cards = {!! $category->cards->toJson() !!};
+                @if(isset($category))
+        var cards = {!! $category->cards->toJson() !!};
         @endif
     </script>
     <script type="text/javascript" src="{{ URL::asset('js/categoryCreate.js') }}"></script>

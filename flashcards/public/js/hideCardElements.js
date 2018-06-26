@@ -14,14 +14,14 @@ function toggle(elementId) {
     if (parseInt(preferenceElement.value) === 1){
         preferenceElement.value = 0;
         cardElement.style.display = "none";
-        buttonElement.classList.remove('btn-success');
-        buttonElement.classList.add('btn-danger');
+        buttonElement.classList.remove('btn-secondary');
+        buttonElement.classList.add('btn-secondary');
         buttonElement.innerHTML = split + "hide";
     }else{
         preferenceElement.value = 1;
         cardElement.style.display = "block";
-        buttonElement.classList.remove('btn-danger');
-        buttonElement.classList.add('btn-success');
+        buttonElement.classList.remove('btn-secondary');
+        buttonElement.classList.add('btn-secondary');
         buttonElement.innerHTML = split + "show";
     }
 }

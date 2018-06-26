@@ -6,13 +6,12 @@
         <input type="hidden" name="categoryId" value="{{$category->id}}">
         <input type="hidden" name="cardId" value="{{$card->id}}">
 
-        <div class="card" style="height: 20rem; width: 20rem;">
+        <div class="card" style="height: 20em; width: 20em;">
             <div class="card-body">
                 <h5 class="card-title">{{ $card->english }}</h5>
-                <p class="card-text">{{ $card->character }}</p>
-                <p class="card-text">{{ $card->pinyin }}</p>
-                <p class="card-text">{{ $card->comment }}</p>
-               </div>
+                <h5 class="card-title">{{ $card->character }}</h5>
+                <h5 class="card-title">{{ $card->pinyin }}</h5>
+            </div>
             <div class="card-footer">
                 <button class="btn btn-success" name="correct" value="1" type="submit">Correct</button>
                 <button class="btn btn-danger" name="correct" value="0" type="submit">Wrong</button>
