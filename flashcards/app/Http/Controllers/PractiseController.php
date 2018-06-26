@@ -175,6 +175,8 @@ class PractiseController extends Controller
 	{
 		$category = Category::find((int) $request->input('categoryId'));
 
+		// todo check card
+
 		$cardIdsJson = Cookie::get(urlencode($category->title));
 		$cardIds     = json_decode($cardIdsJson);
 		if (!is_array($cardIds))
