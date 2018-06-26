@@ -21,6 +21,7 @@ Route::resource('categories', 'CategoryController');
 // Only for logged in users
 Route::get('categories/create', 'CategoryController@create')->name('categories.create')->middleware('auth');
 Route::post('categories/store', 'CategoryController@store')->name('categories.store')->middleware('auth');
+Route::get('categories', 'CategoryController@index')->name('categories.index')->middleware('auth');
 
 // Practise
 Route::get('/practise', 'PractiseController@index')->name('practise.index');
